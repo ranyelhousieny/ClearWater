@@ -19,6 +19,15 @@ import {
   Transforms,
 } from 'slate';
 import { HistoryEditor } from 'slate-history';
+import isHotkey from 'is-hotkey';
+
+const HOTKEYS = {
+  'ctrl+b': 'bold',
+  'ctrl+i': 'italic',
+  'ctrl+u': 'underline',
+  'ctrl+s': 'strikethrough',
+  'ctrl+`': 'code',
+};
 
 type CustomElement = {
   type: 'paragraph';
@@ -47,18 +56,13 @@ const initialDocument: Descendant[] =
       type: 'paragraph',
       children: [
         {
-          text: 'This is the text from the initial document . ',
-        },
-        {
-          text: ' bold',
-          bold: true,
+          text: ' Enter some rich text… ',
         },
       ],
     },
   ];
 
 const BasicEditor = () => {
-  // Define a leaf rendering function that is memoized with `useCallback`.
   const renderLeaf =
     useCallback(
       (props: any) => {
@@ -81,7 +85,6 @@ const BasicEditor = () => {
         value={
           initialDocument
         }>
-        BasicEditor
         <Editable
           renderLeaf={
             renderLeaf
@@ -89,28 +92,24 @@ const BasicEditor = () => {
           onKeyDown={(
             event
           ) => {
-            if (
-              !event.ctrlKey ||
-              event.key !==
-                'b'
-            )
-              return;
-            event.preventDefault();
-
-            Transforms.setNodes(
-              editor,
-              {
-                strikethrough:
-                  true,
-              },
-              {
-                match: (n) =>
-                  Text.isText(
-                    n
-                  ),
-                split: true,
+            for (const hotkey in HOTKEYS) {
+              if (
+                isHotkey(
+                  hotkey,
+                  event as any
+                )
+              ) {
+                event.preventDefault();
+                const mark =
+                  HOTKEYS[
+                    hotkey
+                  ];
+                toggleMark(
+                  editor,
+                  mark
+                );
               }
-            );
+            }
           }}
         />
       </Slate>

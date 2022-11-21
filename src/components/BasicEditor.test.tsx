@@ -2,10 +2,10 @@ import {
   render,
   screen,
 } from '@testing-library/react';
-import AdvancedEditor from './AdvancedEditor';
+import BasicEditor from './BasicEditor';
 
 test('Try the editor', () => {
-  render(<AdvancedEditor />);
+  render(<BasicEditor />);
 
   screen.getByText(
     'Enter some rich text…',

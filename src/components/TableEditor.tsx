@@ -1,7 +1,7 @@
 import React, {
   useState,
 } from 'react';
-import AdvancedEditor from './AdvancedEditor';
+import BasicEditor from './BasicEditor';
 
 const TableEditor = () => {
   const [rows, addRow] =
@@ -119,7 +119,7 @@ const TableEditor = () => {
                   border:
                     'solid',
                 }}>
-                <AdvancedEditor />
+                <BasicEditor />
               </td>
             ))}
           </tr>
