@@ -26,10 +26,6 @@ const TableEditor = () => {
       event.target.value
     );
     addRow(() => []);
-    console.log(
-      'Rows after reset = ' +
-        rows
-    );
 
     for (
       let i = 0;
@@ -47,10 +43,7 @@ const TableEditor = () => {
       event.target.value
     );
     addCol(() => []);
-    //debugger;
-    console.log(
-      event.target.value
-    );
+
     for (
       let i = 0;
       i < event.target.value;
@@ -71,9 +64,11 @@ const TableEditor = () => {
   return (
     <div>
       <div>
-        <h3>
-          Shortcut Keys:{' '}
-        </h3>
+        <h4>
+          <u>
+            Shortcut Keys:{' '}
+          </u>
+        </h4>
         <ul>
           <li>
             Bold = ctrl+b
@@ -84,6 +79,18 @@ const TableEditor = () => {
           <li>
             strikethrough =
             ctrl+s
+          </li>
+          <li>
+            Allign lef =
+            ctrl+l
+          </li>
+          <li>
+            Allign right =
+            ctrl+R
+          </li>
+          <li>
+            Allign center =
+            ctrl+c
           </li>
         </ul>
       </div>

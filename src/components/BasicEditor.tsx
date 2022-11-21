@@ -102,6 +102,7 @@ const BasicEditor = () => {
         createEditor()
       )
   );
+
   return (
     <div>
       <Slate
