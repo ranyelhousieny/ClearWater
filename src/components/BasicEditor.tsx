@@ -12,6 +12,7 @@ import {
   BaseEditor,
   createEditor,
   Descendant,
+  Editor,
   Element,
   Element as SlateElement,
   Text,
@@ -27,6 +28,7 @@ type CustomText = {
   text: string;
   bold?: true;
   italic?: true;
+  strikethrough?: true;
 };
 
 declare module 'slate' {
@@ -98,7 +100,8 @@ const BasicEditor = () => {
             Transforms.setNodes(
               editor,
               {
-                italic: true,
+                strikethrough:
+                  true,
               },
               {
                 match: (n) =>
@@ -113,6 +116,39 @@ const BasicEditor = () => {
       </Slate>
     </div>
   );
+};
+const isMarkActive = (
+  editor: any,
+  format: any
+) => {
+  const marks =
+    Editor.marks(editor);
+  return marks
+    ? marks[format] === true
+    : false;
+};
+const toggleMark = (
+  editor: any,
+  format: string
+) => {
+  const isActive =
+    isMarkActive(
+      editor,
+      format
+    );
+
+  if (isActive) {
+    Editor.removeMark(
+      editor,
+      format
+    );
+  } else {
+    Editor.addMark(
+      editor,
+      format,
+      true
+    );
+  }
 };
 
 const Leaf = ({
@@ -137,6 +173,11 @@ const Leaf = ({
   if (leaf.italic) {
     children = (
       <em>{children}</em>
+    );
+  }
+  if (leaf.strikethrough) {
+    children = (
+      <s>{children}</s>
     );
   }
 
