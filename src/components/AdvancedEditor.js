@@ -465,17 +465,46 @@ const AdvancedEditor = () => {
   );
 };
 
-const Leaf = (props) => {
+const Leaf = ({
+  attributes,
+  children,
+  leaf,
+}: any) => {
+  if (leaf.bold) {
+    children = (
+      <strong>
+        {children}
+      </strong>
+    );
+  }
+
+  if (leaf.code) {
+    children = (
+      <code>{children}</code>
+    );
+  }
+
+  if (leaf.italic) {
+    children = (
+      <em>{children}</em>
+    );
+  }
+
+  if (leaf.strikethrough) {
+    children = (
+      <s>{children}</s>
+    );
+  }
+
+  if (leaf.underline) {
+    children = (
+      <u>{children}</u>
+    );
+  }
+
   return (
-    <span
-      {...props.attributes}
-      style={{
-        fontWeight: props.leaf
-          .bold
-          ? 'bold'
-          : 'normal',
-      }}>
-      {props.children}
+    <span {...attributes}>
+      {children}
     </span>
   );
 };
