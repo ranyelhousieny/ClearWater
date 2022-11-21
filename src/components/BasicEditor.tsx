@@ -1,5 +1,6 @@
 import React, {
   useCallback,
+  useMemo,
   useState,
 } from 'react';
 import {
@@ -67,18 +68,6 @@ declare module 'slate' {
   }
 }
 
-const initialDocument: Descendant[] =
-  [
-    {
-      type: 'paragraph',
-      children: [
-        {
-          text: ' Enter some rich text… ',
-        },
-      ],
-    },
-  ];
-
 const BasicEditor = () => {
   const renderElement =
     useCallback(
@@ -102,6 +91,25 @@ const BasicEditor = () => {
         createEditor()
       )
   );
+  const initialDocument: Descendant[] =
+    useMemo(
+      () =>
+        JSON.parse(
+          localStorage.getItem(
+            'content'
+          )
+        ) || [
+          {
+            type: 'paragraph',
+            children: [
+              {
+                text: 'A line of text in a paragraph.',
+              },
+            ],
+          },
+        ],
+      []
+    );
 
   return (
     <div>
@@ -109,7 +117,26 @@ const BasicEditor = () => {
         editor={editor}
         value={
           initialDocument
-        }>
+        }
+        onChange={(value) => {
+          const isAstChange =
+            editor.operations.some(
+              (op) =>
+                'set_selection' !==
+                op.type
+            );
+          if (isAstChange) {
+            // Save the value to Local Storage.
+            const content =
+              JSON.stringify(
+                value
+              );
+            localStorage.setItem(
+              'content',
+              content
+            );
+          }
+        }}>
         <Editable
           renderElement={
             renderElement
