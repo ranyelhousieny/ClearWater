@@ -19,7 +19,9 @@ const TableEditor = () => {
     updatenumberOfCols,
   ] = useState(0);
 
-  function updateRows(event) {
+  function updateRows(
+    event: any
+  ) {
     updatenumberOfRows(
       event.target.value
     );
