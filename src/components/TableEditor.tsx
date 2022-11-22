@@ -99,6 +99,7 @@ const TableEditor = () => {
           Number of Cols
         </label>
         <input
+          id='numcolsinput'
           type='number'
           value={numberOfCols}
           onChange={

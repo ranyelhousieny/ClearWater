@@ -103,7 +103,7 @@ const BasicEditor = () => {
             type: 'paragraph',
             children: [
               {
-                text: 'A line of text in a paragraph.',
+                text: 'Enter some rich text…',
               },
             ],
           },

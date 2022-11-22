@@ -4,11 +4,13 @@ import {
 } from '@testing-library/react';
 import BasicEditor from './BasicEditor';
 
-test('Try the editor', () => {
-  render(<BasicEditor />);
+describe('Testing Basic Editor', () => {
+  test('Try the editor', () => {
+    render(<BasicEditor />);
 
-  screen.getByText(
-    'Enter some rich text…',
-    { exact: false }
-  );
+    screen.getByText(
+      'Enter some rich text…',
+      { exact: false }
+    );
+  });
 });
